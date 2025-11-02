@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "70687935885",
+    "project_id": "quick-chat-123",
+    "storage_bucket": "quick-chat-123.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:70687935885:android:41cd589b4609825eca81c4",
+        "android_client_info": {
+          "package_name": "com.example.quickchat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-MdCUp47cRe_rJEgeuHkVT0fywEIXOxU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
