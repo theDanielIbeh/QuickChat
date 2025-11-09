@@ -94,6 +94,22 @@ interface FirebaseAuthRepository {
      */
     suspend fun updatePhotoUrl(photoUrl: String): Result<Unit>
 
+    suspend fun createUserWithEmailAndPassword(
+        email: String,
+        password: String,
+        firstName: String,
+        lastName: String
+    )
+
+    suspend fun linkAccountWithGoogle(idToken: String)
+
+    suspend fun signInWithGoogle(idToken: String)
+
+    suspend fun signInWithEmail(
+        email: String,
+        password: String,
+    )
+
     /**
      * Sign out current user.
      */

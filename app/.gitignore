@@ -1,1 +1,5 @@
 /build
+# .gitignore
+app/google-services.json
+google-services.json
+*.json  # Or be more specific

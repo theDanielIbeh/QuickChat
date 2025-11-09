@@ -16,7 +16,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -54,7 +53,7 @@ fun OtpInputField(
         )
     }
 
-    var isFocused by remember { mutableStateOf(false) }
+    var isFocused by rememberSaveable { mutableStateOf(false) }
 
     Box(
         modifier = modifier
@@ -133,7 +132,7 @@ fun OtpInputField(
 fun OtpInputFieldPreview() {
     OtpInputField(
         number = null,
-        focusRequester = remember { FocusRequester() },
+        focusRequester = rememberSaveable { FocusRequester() },
         onFocusChanged = {},
         onValueChanged = {},
         onKeyboardBackspace = {}

@@ -10,10 +10,16 @@ sealed interface Routes {
     data object Onboarding : Routes
 
     @Serializable
-    data object Phone : Routes
+    data object SignUp : Routes
 
     @Serializable
-    data class Otp(val phone: String) : Routes
+    data object SignIn : Routes
+
+//    @Serializable
+//    data object Phone : Routes
+//
+//    @Serializable
+//    data class Otp(val phone: String) : Routes
 
     @Serializable
     data object Home : Routes

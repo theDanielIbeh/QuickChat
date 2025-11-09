@@ -12,7 +12,20 @@
           "package_name": "com.example.quickchat"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "70687935885-fggegr4sd9j0trkdlbq91lrliqbq9l2c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.quickchat",
+            "certificate_hash": "d4b41de4e3b0daabf1b6b98685b3053eeb2f2bf9"
+          }
+        },
+        {
+          "client_id": "70687935885-q7gdlq3j02812n56qagbidllao2hqh04.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyD-MdCUp47cRe_rJEgeuHkVT0fywEIXOxU"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "70687935885-q7gdlq3j02812n56qagbidllao2hqh04.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

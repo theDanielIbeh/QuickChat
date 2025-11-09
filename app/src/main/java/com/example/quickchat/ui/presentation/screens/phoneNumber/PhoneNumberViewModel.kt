@@ -22,5 +22,4 @@ class PhoneNumberViewModel @Inject constructor(
 ) : ViewModel() {
 
 
-
 }

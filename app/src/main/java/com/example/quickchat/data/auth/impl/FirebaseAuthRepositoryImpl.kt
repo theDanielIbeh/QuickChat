@@ -6,12 +6,15 @@ import com.example.quickchat.data.auth.FirebaseAuthRepository
 import com.example.quickchat.data.auth.PhoneAuthResult
 import com.example.quickchat.ui.util.Constants.VERIFICATION_TIMEOUT_SECONDS
 import com.google.firebase.FirebaseException
+import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
+import com.google.firebase.auth.UserProfileChangeRequest
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
@@ -207,6 +210,44 @@ class FirebaseAuthRepositoryImpl @Inject constructor(
         Result.success(Unit)
     } catch (e: Exception) {
         Result.failure(e)
+    }
+
+    override suspend fun createUserWithEmailAndPassword(
+        email: String,
+        password: String,
+        firstName: String,
+        lastName: String,
+    ) {
+        firebaseAuth.createUserWithEmailAndPassword(email, password).await()
+        updateUserProfile(firstName, lastName)
+    }
+
+    private fun updateUserProfile(firstName: String, lastName: String) {
+        val user = firebaseAuth.currentUser
+        val profileUpdate =
+            UserProfileChangeRequest.Builder()
+                .setPhotoUri(user?.photoUrl)
+                .setDisplayName("${firstName.trim()} ${lastName.trim()}")
+                .build()
+        user?.updateProfile(profileUpdate)
+    }
+
+
+    override suspend fun linkAccountWithGoogle(idToken: String) {
+        val firebaseCredential = GoogleAuthProvider.getCredential(idToken, null)
+        firebaseAuth.currentUser!!.linkWithCredential(firebaseCredential).await()
+    }
+
+    override suspend fun signInWithGoogle(idToken: String) {
+        val firebaseCredential = GoogleAuthProvider.getCredential(idToken, null)
+        firebaseAuth.signInWithCredential(firebaseCredential).await()
+    }
+
+    override suspend fun signInWithEmail(
+        email: String,
+        password: String,
+    ) {
+        firebaseAuth.signInWithEmailAndPassword(email, password).await()
     }
 
     override fun signOut() {

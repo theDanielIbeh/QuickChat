@@ -1,4 +1,32 @@
 <resources>
     <string name="app_name">QuickChat</string>
+    <string name="empty_string"/>
     <string name="back_button">Back Button</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="sign_in">Sign In</string>
+    <string name="forgot_password">Forgot Password</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="login_error_msg_empty_fname">Please enter your first name</string>
+    <string name="login_error_msg_empty_lname">Please enter your last name</string>
+    <string name="login_error_msg_invalid_name">Name must be a minimum of 3 characters</string>
+    <string name="login_error_msg_empty_email">Please enter your email</string>
+    <string name="login_error_msg_invalid_email">Please enter a valid email</string>
+    <string name="login_error_msg_empty_password">Please enter your password</string>
+    <string name="login_error_msg_invalid_password">Minimum 8 characters, at least 2 uppercase letters, 2 lowercase letters, 2 numbers and 2 special characters</string>
+    <string name="login_error_msg_invalid_c_password">Passwords do not match</string>
+    <string name="login_error_msg_empty_phone">Please enter your phone</string>
+    <string name="login_error_msg_invalid_phone">Please enter a valid phone number</string>
+    <string name="login_error_msg_unchecked_terms">Agreeing with our terms is required</string>
+
+    <string name="sign_in_with_google">Sign in with Google</string>
+    <string name="no_accounts_error">No Google accounts found on this device</string>
+    <string name="sign_up_with_google">Sign up with Google</string>
+    <string name="web_client_id">630826661385-pql6uo97kh7107t0kr1d0h4ruh3bana5.apps.googleusercontent.com</string>
+    <string name="share">Share</string>
+    <string name="delete">Delete</string>
 </resources>
