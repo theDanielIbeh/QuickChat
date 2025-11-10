@@ -15,6 +15,7 @@ import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.auth.UserProfileChangeRequest
+import com.google.firebase.auth.userProfileChangeRequest
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
@@ -89,7 +90,6 @@ class FirebaseAuthRepositoryImpl @Inject constructor(
         activity: Activity,
         resendToken: PhoneAuthProvider.ForceResendingToken
     ): Flow<PhoneAuthResult> = callbackFlow {
-        var verId : String
         val callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
                 val code = credential.smsCode
@@ -106,7 +106,6 @@ class FirebaseAuthRepositoryImpl @Inject constructor(
                 verificationId: String,
                 token: PhoneAuthProvider.ForceResendingToken,
             ) {
-                verId = verificationId
                 trySend(PhoneAuthResult.CodeSent(verificationId, token))
             }
         }
@@ -152,7 +151,7 @@ class FirebaseAuthRepositoryImpl @Inject constructor(
         val currentUser = firebaseAuth.currentUser
             ?: return Result.failure(Exception("No authenticated user"))
 
-        val credential = com.google.firebase.auth.EmailAuthProvider.getCredential(email, password)
+        val credential = EmailAuthProvider.getCredential(email, password)
         val authResult = currentUser.linkWithCredential(credential).await()
 
         authResult.user?.let {
@@ -187,7 +186,7 @@ class FirebaseAuthRepositoryImpl @Inject constructor(
         val currentUser = firebaseAuth.currentUser
             ?: return Result.failure(Exception("No authenticated user"))
 
-        val profileUpdates = com.google.firebase.auth.userProfileChangeRequest {
+        val profileUpdates = userProfileChangeRequest {
             this.displayName = displayName
         }
 
@@ -201,7 +200,7 @@ class FirebaseAuthRepositoryImpl @Inject constructor(
         val currentUser = firebaseAuth.currentUser
             ?: return Result.failure(Exception("No authenticated user"))
 
-        val profileUpdates = com.google.firebase.auth.userProfileChangeRequest {
+        val profileUpdates = userProfileChangeRequest {
             this.photoUri = photoUrl.toUri()
 //            this.photoUri = android.net.Uri.parse(photoUrl)
         }
@@ -219,15 +218,14 @@ class FirebaseAuthRepositoryImpl @Inject constructor(
         lastName: String,
     ) {
         firebaseAuth.createUserWithEmailAndPassword(email, password).await()
-        updateUserProfile(firstName, lastName)
     }
 
-    private fun updateUserProfile(firstName: String, lastName: String) {
+    override suspend fun updateUserProfile(name: String, photoUrl: String?) {
         val user = firebaseAuth.currentUser
         val profileUpdate =
             UserProfileChangeRequest.Builder()
-                .setPhotoUri(user?.photoUrl)
-                .setDisplayName("${firstName.trim()} ${lastName.trim()}")
+                .setPhotoUri(photoUrl?.toUri())
+                .setDisplayName(name.trim())
                 .build()
         user?.updateProfile(profileUpdate)
     }

@@ -43,14 +43,6 @@ class SignUpViewModel @Inject constructor(
                 updateEmail(event.email)
             }
 
-            is SignUpEvent.EditFirstName -> {
-                updateFirstName(event.fName)
-            }
-
-            is SignUpEvent.EditLastName -> {
-                updateLastName(event.lName)
-            }
-
             is SignUpEvent.EditPassword -> {
                 updatePassword(event.password)
             }
@@ -71,14 +63,6 @@ class SignUpViewModel @Inject constructor(
                 onSignUpWithGoogle(event.credential, event.popUpScreen)
             }
         }
-    }
-
-    private fun updateFirstName(firstName: String) {
-        signUpState.update { loginState -> loginState.copy(firstName = firstName) }
-    }
-
-    private fun updateLastName(lastName: String) {
-        signUpState.update { loginState -> loginState.copy(lastName = lastName) }
     }
 
     private fun updateEmail(email: String) {
@@ -125,8 +109,6 @@ class SignUpViewModel @Inject constructor(
     }
 
     private fun validateInputs(): Boolean {
-        val firstName = signUpState.value.firstName.trim()
-        val lastName = signUpState.value.lastName.trim()
         val email = signUpState.value.email.trim()
         val password = signUpState.value.password.trim()
         val cPassword = signUpState.value.cPassword.trim()
@@ -134,8 +116,6 @@ class SignUpViewModel @Inject constructor(
 
         Log.d("Register", signUpState.value.errorState.toString())
         return if (
-            validateFirstName(firstName) &&
-            validateLastName(lastName) &&
             validateEmail(email) &&
             validatePassword(password) &&
             validateConfirmPassword(cPassword) &&
@@ -146,70 +126,6 @@ class SignUpViewModel @Inject constructor(
             true
         } else {
             false
-        }
-    }
-
-    private fun validateFirstName(name: String): Boolean {
-        return when {
-            (name.isEmpty()) -> {
-                signUpState.update {
-                    it.copy(
-                        errorState =
-                            RegisterErrorState(
-                                firstNameErrorState = firstNameEmptyErrorState,
-                            ),
-                    )
-                }
-                false
-            }
-
-            (name.length < 3) -> {
-                signUpState.update {
-                    it.copy(
-                        errorState =
-                            RegisterErrorState(
-                                firstNameErrorState = nameInvalidErrorState,
-                            ),
-                    )
-                }
-                false
-            }
-
-            else -> {
-                true
-            }
-        }
-    }
-
-    private fun validateLastName(name: String): Boolean {
-        return when {
-            (name.isEmpty()) -> {
-                signUpState.update {
-                    it.copy(
-                        errorState =
-                            RegisterErrorState(
-                                lastNameErrorState = lastNameEmptyErrorState,
-                            ),
-                    )
-                }
-                false
-            }
-
-            (name.length < 3) -> {
-                signUpState.update {
-                    it.copy(
-                        errorState =
-                            RegisterErrorState(
-                                lastNameErrorState = nameInvalidErrorState,
-                            ),
-                    )
-                }
-                false
-            }
-
-            else -> {
-                true
-            }
         }
     }
 

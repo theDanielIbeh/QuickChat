@@ -7,9 +7,6 @@ sealed class SignUpEvent {
 
     data class SignUpWithGoogle(val credential: Credential, val popUpScreen: () -> Unit) : SignUpEvent()
 
-    data class EditFirstName(val fName: String) : SignUpEvent()
-
-    data class EditLastName(val lName: String) : SignUpEvent()
 
     data class EditEmail(val email: String) : SignUpEvent()
 

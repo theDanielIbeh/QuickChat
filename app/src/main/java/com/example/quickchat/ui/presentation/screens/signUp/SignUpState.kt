@@ -21,26 +21,12 @@ data class SignUpState(
  * text field validation errors
  */
 data class RegisterErrorState(
-    val firstNameErrorState: ErrorState = ErrorState(),
-    val lastNameErrorState: ErrorState = ErrorState(),
     val emailErrorState: ErrorState = ErrorState(),
     val passwordErrorState: ErrorState = ErrorState(),
     val cPasswordErrorState: ErrorState = ErrorState(),
     val phoneErrorState: ErrorState = ErrorState(),
     val termsErrorState: ErrorState = ErrorState(),
 )
-
-val firstNameEmptyErrorState =
-    ErrorState(
-        hasError = true,
-        errorMessageStringResource = R.string.login_error_msg_empty_fname,
-    )
-
-val lastNameEmptyErrorState =
-    ErrorState(
-        hasError = true,
-        errorMessageStringResource = R.string.login_error_msg_empty_lname,
-    )
 
 val nameInvalidErrorState =
     ErrorState(

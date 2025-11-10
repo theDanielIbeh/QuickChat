@@ -101,6 +101,8 @@ interface FirebaseAuthRepository {
         lastName: String
     )
 
+    suspend fun updateUserProfile(name: String, photoUrl: String?)
+
     suspend fun linkAccountWithGoogle(idToken: String)
 
     suspend fun signInWithGoogle(idToken: String)

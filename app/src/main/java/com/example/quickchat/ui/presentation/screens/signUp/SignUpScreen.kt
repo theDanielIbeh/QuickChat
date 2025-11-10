@@ -6,6 +6,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -46,6 +47,7 @@ fun SignUpScreen(
 
     Column(
         modifier = modifier
+            .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
             .padding(horizontal = 24.dp)
             .verticalScroll(rememberScrollState())
@@ -65,24 +67,24 @@ fun SignUpScreen(
             modifier = Modifier.padding(top = 8.dp)
         )
 
-        Spacer(modifier = Modifier.height(40.dp))
+        Spacer(modifier = Modifier.height(36.dp))
 
-        AuthTextField(
-            value = state.firstName,
-            onTextChange = { viewModel.onEvent(SignUpEvent.EditFirstName(it)) },
-            modifier = Modifier.padding(8.dp),
-            label = { Text(stringResource(R.string.first_name)) },
-            isError = state.errorState.firstNameErrorState.hasError,
-            errorText = stringResource(state.errorState.firstNameErrorState.errorMessageStringResource),
-        )
-        AuthTextField(
-            value = state.lastName,
-            onTextChange = { viewModel.onEvent(SignUpEvent.EditLastName(it)) },
-            modifier = Modifier.padding(8.dp),
-            label = { Text(stringResource(R.string.last_name)) },
-            isError = state.errorState.lastNameErrorState.hasError,
-            errorText = stringResource(state.errorState.lastNameErrorState.errorMessageStringResource),
-        )
+//        AuthTextField(
+//            value = state.firstName,
+//            onTextChange = { viewModel.onEvent(SignUpEvent.EditFirstName(it)) },
+//            modifier = Modifier.padding(8.dp),
+//            label = { Text(stringResource(R.string.first_name)) },
+//            isError = state.errorState.firstNameErrorState.hasError,
+//            errorText = stringResource(state.errorState.firstNameErrorState.errorMessageStringResource),
+//        )
+//        AuthTextField(
+//            value = state.lastName,
+//            onTextChange = { viewModel.onEvent(SignUpEvent.EditLastName(it)) },
+//            modifier = Modifier.padding(8.dp),
+//            label = { Text(stringResource(R.string.last_name)) },
+//            isError = state.errorState.lastNameErrorState.hasError,
+//            errorText = stringResource(state.errorState.lastNameErrorState.errorMessageStringResource),
+//        )
         AuthTextField(
             value = state.email,
             onTextChange = { viewModel.onEvent(SignUpEvent.EditEmail(it)) },
@@ -119,7 +121,7 @@ fun SignUpScreen(
             errorText = stringResource(state.errorState.cPasswordErrorState.errorMessageStringResource),
         )
 
-        Spacer(modifier = Modifier.height(32.dp))
+        Spacer(modifier = Modifier.weight(1f))
 
         Button(
             onClick = {
@@ -164,7 +166,5 @@ fun SignUpScreen(
                 )
             }
         }
-
-        Spacer(modifier = Modifier.height(16.dp))
     }
 }
