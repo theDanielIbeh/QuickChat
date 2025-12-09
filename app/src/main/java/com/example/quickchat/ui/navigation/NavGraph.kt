@@ -1,17 +1,21 @@
 package com.example.quickchat.ui.navigation
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.quickchat.ui.presentation.screens.home.BottomNavItem
 import com.example.quickchat.ui.presentation.screens.onboarding.OnboardingScreen
 import com.example.quickchat.ui.presentation.screens.signIn.SignInScreen
 import com.example.quickchat.ui.presentation.screens.signUp.SignUpScreen
+import com.example.quickchat.ui.presentation.screens.home.HomeScreen
 
 @Composable
 fun NavGraph(
+    selectedItem: BottomNavItem,
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
     startDestination: Routes = Routes.Onboarding
@@ -59,6 +63,12 @@ fun NavGraph(
                 },
             )
         }
+        composable<Routes.Home> {
+            HomeScreen(
+                selectedItem = selectedItem
+            )
+        }
+
 //            composable<Routes.Phone> {
 //                PhoneNumberScreen(
 //                    phone = phoneNumber.value,

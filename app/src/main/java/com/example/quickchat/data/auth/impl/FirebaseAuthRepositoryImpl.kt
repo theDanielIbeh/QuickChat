@@ -1,6 +1,7 @@
 package com.example.quickchat.data.auth.impl
 
 import android.app.Activity
+import android.util.Log
 import androidx.core.net.toUri
 import com.example.quickchat.data.auth.FirebaseAuthRepository
 import com.example.quickchat.data.auth.PhoneAuthResult
@@ -56,10 +57,7 @@ class FirebaseAuthRepositoryImpl @Inject constructor(
     ): Flow<PhoneAuthResult> = callbackFlow {
         val callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
-                val code = credential.smsCode
-                if (code != null) {
-                    trySend(PhoneAuthResult.VerificationCompleted(credential, code))
-                }
+                    trySend(PhoneAuthResult.VerificationCompleted(credential))
             }
 
             override fun onVerificationFailed(e: FirebaseException) {
@@ -70,6 +68,7 @@ class FirebaseAuthRepositoryImpl @Inject constructor(
                 verificationId: String,
                 token: PhoneAuthProvider.ForceResendingToken,
             ) {
+                Log.d("FirebaseAuthRepository", "onCodeSent: $verificationId")
                 trySend(PhoneAuthResult.CodeSent(verificationId, token))
             }
         }
@@ -94,7 +93,7 @@ class FirebaseAuthRepositoryImpl @Inject constructor(
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
                 val code = credential.smsCode
                 if (code != null) {
-                    trySend(PhoneAuthResult.VerificationCompleted(credential, code))
+                    trySend(PhoneAuthResult.VerificationCompleted(credential))
                 }
             }
 

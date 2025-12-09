@@ -6,6 +6,6 @@ import com.google.firebase.auth.PhoneAuthProvider
 
 sealed class PhoneAuthResult {
     data class CodeSent(val verificationId: String, val token: PhoneAuthProvider.ForceResendingToken) : PhoneAuthResult()
-    data class VerificationCompleted(val credential: PhoneAuthCredential, val code: String) : PhoneAuthResult()
+    data class VerificationCompleted(val credential: PhoneAuthCredential) : PhoneAuthResult()
     data class VerificationFailed(val exception: FirebaseException) : PhoneAuthResult()
 }

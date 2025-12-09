@@ -67,15 +67,10 @@ class VerificationViewModel @Inject constructor(
 
                     is PhoneAuthResult.VerificationCompleted -> {
                         // Auto-verification, sign in with credential
-                        state.update {
-                            it.copy(
-                                code = result.code.toList().map { digit -> digit.digitToInt() }
-                            )
-                        }
                         state.value.verificationId?.let {
                             firebaseAuthRepository.signInWithPhoneAuthCredential(
                                 it,
-                                result.code
+                                state.value.code.joinToString()
                             )
                         }
                     }
@@ -114,15 +109,10 @@ class VerificationViewModel @Inject constructor(
 
                         is PhoneAuthResult.VerificationCompleted -> {
                             // Auto-verification, sign in with credential
-                            state.update {
-                                it.copy(
-                                    code = result.code.toList().map { digit -> digit.digitToInt() }
-                                )
-                            }
                             state.value.verificationId?.let {
                                 firebaseAuthRepository.signInWithPhoneAuthCredential(
                                     it,
-                                    result.code
+                                    state.value.code.joinToString("")
                                 )
                             }
                         }
@@ -142,6 +132,7 @@ class VerificationViewModel @Inject constructor(
 
     fun signInWithSmsCode() {
         val state = state.value
+        Log.d("VerificationViewModel", state.code.joinToString(""))
         val code = state.code.joinToString("")
         val verificationId = state.verificationId
         if (verificationId != null) {

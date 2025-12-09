@@ -35,10 +35,10 @@ import com.example.quickchat.ui.presentation.screens.common.AuthTextField
 
 @Composable
 fun SignInScreen(
-    application: Application = LocalContext.current.applicationContext as Application,
     onNavigateToSignUp: () -> Unit,
     openAndPopUp: () -> Unit,
     modifier: Modifier = Modifier,
+    application: Application = LocalContext.current.applicationContext as Application,
     loginViewModel: SignInViewModel = hiltViewModel<SignInViewModel>()
 ) {
     val loginState by loginViewModel.state.collectAsStateWithLifecycle()
